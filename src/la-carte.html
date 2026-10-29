@@ -1,0 +1,26 @@
+<main id="contenu"><div class="container breadcrumb"><a href="/">Le restaurant</a><span aria-hidden="true">/</span><span>La carte</span></div>  <section id="carte" class="menu-section container" aria-labelledby="menu-title">
+    <div class="section-heading">
+      <div><p class="eyebrow">La carte du Verone</p><h1 id="menu-title">À chacun <em>sa pizza.</em></h1></div>
+      <p>Plutôt tomate, plutôt crème ?<br>Suivez votre gourmandise.</p>
+    </div>
+    <div class="menu-controls" data-menu-controls hidden>
+      <div class="base-filters" role="group" aria-label="Filtrer par base">
+        <button type="button" class="filter-button" data-base-filter="all" aria-label="Toutes les pizzas" aria-pressed="true" aria-controls="pizza-grid"><span class="filter-label-long">Toutes les pizzas</span><span class="filter-label-short" aria-hidden="true">Toutes</span></button>
+        <button type="button" class="filter-button" data-base-filter="tomate" aria-pressed="false" aria-controls="pizza-grid"><span class="base-dot tomato-dot" aria-hidden="true"></span>Base tomate</button>
+        <button type="button" class="filter-button" data-base-filter="creme" aria-pressed="false" aria-controls="pizza-grid"><span class="base-dot cream-dot" aria-hidden="true"></span>Base crème</button>
+      </div>
+      <label class="vegetarian-filter"><input type="checkbox" id="vegetarian-filter" aria-controls="pizza-grid">{{LEAF_ICON}}<span>Végétariennes</span></label>
+    </div>
+    <div class="menu-caption">
+      <p id="pizza-count" role="status" aria-live="polite" aria-atomic="true">{{MENU_COUNT}} pizzas à découvrir</p>
+      <button class="filter-reset" type="button" hidden>Réinitialiser les filtres <span aria-hidden="true">↺</span></button>
+      <span class="demo-prices">Carte d’exemple · Tarifs fictifs</span>
+    </div>
+    <div id="pizza-grid" class="pizza-grid">{{MENU}}</div>
+    <p id="menu-empty" class="menu-empty" hidden>Aucune pizza ne correspond à ces filtres. Essayez une autre sélection.</p>
+    <div class="allergy-note"><span class="allergy-symbol" aria-hidden="true">i</span><p>Une allergie, une envie particulière ? <a href="tel:{{PHONE}}">Parlons-en au téléphone.</a><span>La composition et les éventuelles traces sont à confirmer avant toute commande.</span></p></div>
+  </section><aside class="demo-notice container"><strong>Une carte pour vous donner un avant-goût.</strong><p>Photos provisoires issues de <a href="/credits/">Del Arte</a> et tarifs fictifs de démonstration. Horaires et modalités de commande à confirmer par téléphone.</p></aside></main>
+<dialog id="pizza-dialog" class="pizza-dialog" aria-labelledby="dialog-title">
+  <button class="dialog-close" type="button" aria-label="Fermer la fiche pizza" autofocus>×</button>
+  <div class="dialog-layout"><div class="dialog-photo"></div><div class="dialog-copy"><p class="eyebrow" id="dialog-base"></p><h2 id="dialog-title"></h2><p id="dialog-description"></p><p class="dialog-price"><span id="dialog-price"></span><small>Tarif fictif de démonstration</small></p><p class="dialog-allergy">Composition, allergènes et disponibilités à confirmer auprès du restaurant.</p><a class="button" href="tel:{{PHONE}}">{{PHONE_ICON}}Appeler pour cette pizza</a></div></div>
+</dialog>

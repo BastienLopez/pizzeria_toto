@@ -1,0 +1,14 @@
+{
+  "name": "Le Verone",
+  "origin": "https://verone.fr",
+  "telephone": "0123456789",
+  "address": {
+    "streetAddress": "123 rue de Venise",
+    "postalCode": "51100",
+    "addressLocality": "Reims",
+    "addressCountry": "FR"
+  },
+  "openingHours": null,
+  "demoPrices": true,
+  "temporaryPhotos": true
+}

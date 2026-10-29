@@ -1,0 +1,83 @@
+name: Livraison GitHub Pages
+
+# La démonstration contient encore des données provisoires : publication choisie
+# explicitement depuis Actions, après validation des contenus du restaurant.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  branch:
+    name: Vérifier la branche de publication
+    runs-on: ubuntu-24.04
+    timeout-minutes: 2
+    steps:
+      - name: Exiger la branche par défaut
+        env:
+          REQUESTED_REF: ${{ github.ref }}
+          EXPECTED_REF: refs/heads/${{ github.event.repository.default_branch }}
+        shell: bash
+        run: |
+          if [[ "$REQUESTED_REF" != "$EXPECTED_REF" ]]; then
+            echo "::error::Lancez la livraison depuis la branche par défaut du dépôt."
+            exit 1
+          fi
+
+  validation:
+    name: Valider le commit à publier
+    needs: branch
+    uses: ./.github/workflows/ci.yml
+    permissions:
+      contents: read
+
+  prepare:
+    name: Préparer le site Pages
+    needs: validation
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      pages: read
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '24'
+      - uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
+        id: pages
+        with:
+          enablement: false
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
+        with:
+          name: verone-dist
+          path: dist/
+      - name: Vérifier le livrable et le domaine Pages configuré
+        env:
+          PAGES_URL: ${{ steps.pages.outputs.base_url }}
+        run: npm run check:dist
+      - uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4
+        with:
+          path: dist/
+
+  deploy:
+    name: Publier sur GitHub Pages
+    needs: prepare
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4
+        id: deployment

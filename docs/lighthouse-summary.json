@@ -1,0 +1,242 @@
+[
+  {
+    "name": "accueil-mobile-clair",
+    "url": "http://127.0.0.1:4174/",
+    "theme": "light",
+    "device": "mobile",
+    "version": "13.6.0",
+    "date": "2026-10-28T17:56:04.769Z",
+    "scores": {
+      "performance": 99,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 100
+    },
+    "metrics": {
+      "lcpMs": 2110.5385,
+      "cls": 0,
+      "tbtMs": 0
+    },
+    "warnings": []
+  },
+  {
+    "name": "carte-mobile-clair",
+    "url": "http://127.0.0.1:4174/la-carte/",
+    "theme": "light",
+    "device": "mobile",
+    "version": "13.6.0",
+    "date": "2026-10-28T17:56:13.639Z",
+    "scores": {
+      "performance": 99,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 100
+    },
+    "metrics": {
+      "lcpMs": 2110.7972,
+      "cls": 0,
+      "tbtMs": 15
+    },
+    "warnings": []
+  },
+  {
+    "name": "infos-mobile-clair",
+    "url": "http://127.0.0.1:4174/infos-pratiques/",
+    "theme": "light",
+    "device": "mobile",
+    "version": "13.6.0",
+    "date": "2026-10-28T17:56:22.362Z",
+    "scores": {
+      "performance": 100,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 100
+    },
+    "metrics": {
+      "lcpMs": 980.7738999999999,
+      "cls": 0,
+      "tbtMs": 0
+    },
+    "warnings": []
+  },
+  {
+    "name": "accueil-desktop-clair",
+    "url": "http://127.0.0.1:4174/",
+    "theme": "light",
+    "device": "desktop",
+    "version": "13.6.0",
+    "date": "2026-10-28T17:56:30.588Z",
+    "scores": {
+      "performance": 100,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 100
+    },
+    "metrics": {
+      "lcpMs": 427.3198,
+      "cls": 0,
+      "tbtMs": 0
+    },
+    "warnings": []
+  },
+  {
+    "name": "carte-desktop-clair",
+    "url": "http://127.0.0.1:4174/la-carte/",
+    "theme": "light",
+    "device": "desktop",
+    "version": "13.6.0",
+    "date": "2026-10-28T17:56:39.359Z",
+    "scores": {
+      "performance": 100,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 100
+    },
+    "metrics": {
+      "lcpMs": 466.65520000000004,
+      "cls": 0,
+      "tbtMs": 0
+    },
+    "warnings": []
+  },
+  {
+    "name": "infos-desktop-clair",
+    "url": "http://127.0.0.1:4174/infos-pratiques/",
+    "theme": "light",
+    "device": "desktop",
+    "version": "13.6.0",
+    "date": "2026-10-28T17:56:48.068Z",
+    "scores": {
+      "performance": 100,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 100
+    },
+    "metrics": {
+      "lcpMs": 207.9244,
+      "cls": 0,
+      "tbtMs": 0
+    },
+    "warnings": []
+  },
+  {
+    "name": "accueil-mobile-sombre",
+    "url": "http://127.0.0.1:4174/",
+    "theme": "dark",
+    "device": "mobile",
+    "version": "13.6.0",
+    "date": "2026-10-28T17:56:56.326Z",
+    "scores": {
+      "performance": 99,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 100
+    },
+    "metrics": {
+      "lcpMs": 2110.1495000000004,
+      "cls": 0,
+      "tbtMs": 0
+    },
+    "warnings": []
+  },
+  {
+    "name": "carte-mobile-sombre",
+    "url": "http://127.0.0.1:4174/la-carte/",
+    "theme": "dark",
+    "device": "mobile",
+    "version": "13.6.0",
+    "date": "2026-10-28T17:57:04.900Z",
+    "scores": {
+      "performance": 99,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 100
+    },
+    "metrics": {
+      "lcpMs": 2111.0713,
+      "cls": 0,
+      "tbtMs": 5
+    },
+    "warnings": []
+  },
+  {
+    "name": "infos-mobile-sombre",
+    "url": "http://127.0.0.1:4174/infos-pratiques/",
+    "theme": "dark",
+    "device": "mobile",
+    "version": "13.6.0",
+    "date": "2026-10-28T17:57:13.643Z",
+    "scores": {
+      "performance": 100,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 100
+    },
+    "metrics": {
+      "lcpMs": 756.7923000000001,
+      "cls": 0,
+      "tbtMs": 0
+    },
+    "warnings": []
+  },
+  {
+    "name": "accueil-desktop-sombre",
+    "url": "http://127.0.0.1:4174/",
+    "theme": "dark",
+    "device": "desktop",
+    "version": "13.6.0",
+    "date": "2026-10-28T17:57:21.879Z",
+    "scores": {
+      "performance": 100,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 100
+    },
+    "metrics": {
+      "lcpMs": 433.77139999999997,
+      "cls": 0,
+      "tbtMs": 0
+    },
+    "warnings": []
+  },
+  {
+    "name": "carte-desktop-sombre",
+    "url": "http://127.0.0.1:4174/la-carte/",
+    "theme": "dark",
+    "device": "desktop",
+    "version": "13.6.0",
+    "date": "2026-10-28T17:57:30.727Z",
+    "scores": {
+      "performance": 100,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 100
+    },
+    "metrics": {
+      "lcpMs": 467.13109999999995,
+      "cls": 0,
+      "tbtMs": 0
+    },
+    "warnings": []
+  },
+  {
+    "name": "infos-desktop-sombre",
+    "url": "http://127.0.0.1:4174/infos-pratiques/",
+    "theme": "dark",
+    "device": "desktop",
+    "version": "13.6.0",
+    "date": "2026-10-28T17:57:39.238Z",
+    "scores": {
+      "performance": 100,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 100
+    },
+    "metrics": {
+      "lcpMs": 208.30419999999998,
+      "cls": 0,
+      "tbtMs": 0
+    },
+    "warnings": []
+  }
+]

@@ -1,0 +1,249 @@
+{
+  "auditDate": "2026-10-29",
+  "mode": "Local production build, not deployed or CrUX evidence",
+  "lighthouseVersion": "13.6.0",
+  "browser": "HeadlessChrome/156.0.0.0",
+  "profile": "mobile simulé et desktop, clair et sombre",
+  "runs": [
+    {
+      "name": "accueil-mobile-clair",
+      "url": "http://127.0.0.1:4176/",
+      "theme": "light",
+      "device": "mobile",
+      "version": "13.6.0",
+      "date": "2026-10-29T16:21:07.489Z",
+      "scores": {
+        "performance": 99,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "lcpMs": 2123.5715,
+        "cls": 0,
+        "tbtMs": 0
+      },
+      "warnings": []
+    },
+    {
+      "name": "carte-mobile-clair",
+      "url": "http://127.0.0.1:4176/la-carte/",
+      "theme": "light",
+      "device": "mobile",
+      "version": "13.6.0",
+      "date": "2026-10-29T16:21:21.646Z",
+      "scores": {
+        "performance": 99,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "lcpMs": 1825.1496,
+        "cls": 0.06201325890487001,
+        "tbtMs": 52
+      },
+      "warnings": []
+    },
+    {
+      "name": "infos-mobile-clair",
+      "url": "http://127.0.0.1:4176/infos-pratiques/",
+      "theme": "light",
+      "device": "mobile",
+      "version": "13.6.0",
+      "date": "2026-10-29T16:21:34.445Z",
+      "scores": {
+        "performance": 99,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "lcpMs": 768.336,
+        "cls": 0,
+        "tbtMs": 0
+      },
+      "warnings": []
+    },
+    {
+      "name": "accueil-desktop-clair",
+      "url": "http://127.0.0.1:4176/",
+      "theme": "light",
+      "device": "desktop",
+      "version": "13.6.0",
+      "date": "2026-10-29T16:21:50.621Z",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "lcpMs": 429.3333,
+        "cls": 0.0006479517146717452,
+        "tbtMs": 0
+      },
+      "warnings": []
+    },
+    {
+      "name": "carte-desktop-clair",
+      "url": "http://127.0.0.1:4176/la-carte/",
+      "theme": "light",
+      "device": "desktop",
+      "version": "13.6.0",
+      "date": "2026-10-29T16:22:05.532Z",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "lcpMs": 476.59799999999996,
+        "cls": 0,
+        "tbtMs": 0
+      },
+      "warnings": []
+    },
+    {
+      "name": "infos-desktop-clair",
+      "url": "http://127.0.0.1:4176/infos-pratiques/",
+      "theme": "light",
+      "device": "desktop",
+      "version": "13.6.0",
+      "date": "2026-10-29T16:22:16.449Z",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "lcpMs": 228.03225,
+        "cls": 0,
+        "tbtMs": 0
+      },
+      "warnings": []
+    },
+    {
+      "name": "accueil-mobile-sombre",
+      "url": "http://127.0.0.1:4176/",
+      "theme": "dark",
+      "device": "mobile",
+      "version": "13.6.0",
+      "date": "2026-10-29T16:22:27.354Z",
+      "scores": {
+        "performance": 98,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "lcpMs": 2109.5065000000004,
+        "cls": 0,
+        "tbtMs": 0
+      },
+      "warnings": []
+    },
+    {
+      "name": "carte-mobile-sombre",
+      "url": "http://127.0.0.1:4176/la-carte/",
+      "theme": "dark",
+      "device": "mobile",
+      "version": "13.6.0",
+      "date": "2026-10-29T16:22:50.324Z",
+      "scores": {
+        "performance": 99,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "lcpMs": 1828.865,
+        "cls": 0.06201325890487001,
+        "tbtMs": 0
+      },
+      "warnings": []
+    },
+    {
+      "name": "infos-mobile-sombre",
+      "url": "http://127.0.0.1:4176/infos-pratiques/",
+      "theme": "dark",
+      "device": "mobile",
+      "version": "13.6.0",
+      "date": "2026-10-29T16:23:21.175Z",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "lcpMs": 766.3018,
+        "cls": 0,
+        "tbtMs": 0
+      },
+      "warnings": []
+    },
+    {
+      "name": "accueil-desktop-sombre",
+      "url": "http://127.0.0.1:4176/",
+      "theme": "dark",
+      "device": "desktop",
+      "version": "13.6.0",
+      "date": "2026-10-29T16:24:08.515Z",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "lcpMs": 434.9725000000001,
+        "cls": 0,
+        "tbtMs": 0
+      },
+      "warnings": []
+    },
+    {
+      "name": "carte-desktop-sombre",
+      "url": "http://127.0.0.1:4176/la-carte/",
+      "theme": "dark",
+      "device": "desktop",
+      "version": "13.6.0",
+      "date": "2026-10-29T16:24:47.195Z",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "lcpMs": 471.6986999999999,
+        "cls": 0,
+        "tbtMs": 0
+      },
+      "warnings": []
+    },
+    {
+      "name": "infos-desktop-sombre",
+      "url": "http://127.0.0.1:4176/infos-pratiques/",
+      "theme": "dark",
+      "device": "desktop",
+      "version": "13.6.0",
+      "date": "2026-10-29T16:25:12.023Z",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "lcpMs": 209.70420000000001,
+        "cls": 0,
+        "tbtMs": 0
+      },
+      "warnings": []
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+dist/
+.preview/
+.test-site/
+node_modules/
+playwright-report/
+test-results/
+.env
+.env.*
+!.env.example
+.security-audit/context.json
+.security-audit/scans/
+.codex/recipe-sources.json
+.codex/fonts-source.css
+.codex/qa/

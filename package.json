@@ -1,0 +1,25 @@
+{
+  "name": "le-verone",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Site vitrine statique de la pizzeria Le Verone",
+  "engines": {
+    "node": ">=22.12"
+  },
+  "scripts": {
+    "dev": "node scripts/serve.mjs --watch",
+    "build": "node scripts/build.mjs",
+    "preview": "node scripts/serve.mjs",
+    "check": "node --check src/app.mjs && node --check src/theme-init.js && node --check scripts/build.mjs && node --check scripts/serve.mjs && node --check scripts/security-policy.mjs && node --check scripts/audit-lighthouse.mjs && node --check scripts/check-dist.mjs && node --check playwright.config.mjs && node --check tests/browser/site.spec.mjs",
+    "check:dist": "node scripts/check-dist.mjs",
+    "test": "node --test tests/site.test.mjs",
+    "test:e2e": "playwright test",
+    "test:e2e:report": "playwright show-report",
+    "validate": "npm run check && npm test && npm run build && npm run check:dist"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.14.0",
+    "@playwright/test": "1.64.1"
+  }
+}

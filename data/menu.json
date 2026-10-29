@@ -1,0 +1,82 @@
+[
+  {
+    "id": "margherita",
+    "name": "Margherita",
+    "description": "Sauce tomate, double mozzarella et basilic.",
+    "base": "tomate",
+    "vegetarian": true,
+    "spicy": false,
+    "price": 10.5,
+    "source": "https://www.delarte.fr/products/margherita/ft000951"
+  },
+  {
+    "id": "regina",
+    "name": "Regina",
+    "description": "Sauce tomate, mozzarella, jambon et champignons.",
+    "base": "tomate",
+    "vegetarian": false,
+    "spicy": false,
+    "price": 13.5,
+    "source": "https://www.delarte.fr/products/regina/ft004169"
+  },
+  {
+    "id": "quattro-formaggi",
+    "name": "Quattro formaggi",
+    "description": "Crème, mozzarella, scamorza fumée, camembert di bufala et gorgonzola.",
+    "base": "creme",
+    "vegetarian": true,
+    "spicy": false,
+    "price": 14.5,
+    "source": "https://www.delarte.fr/products/4-formaggi/ft009792"
+  },
+  {
+    "id": "diavola",
+    "name": "Diavola",
+    "description": "Tomate, ’nduja, poivrons grillés, oignons rouges, fromage italien et mozzarella di bufala.",
+    "base": "tomate",
+    "vegetarian": false,
+    "spicy": true,
+    "price": 14.5,
+    "source": "https://www.delarte.fr/products/diavola/ft007140"
+  },
+  {
+    "id": "parma-e-bufala",
+    "name": "Parma e bufala",
+    "description": "Sauce tomate, mozzarella, jambon de Parme, mozzarella di bufala et roquette.",
+    "base": "tomate",
+    "vegetarian": false,
+    "spicy": false,
+    "price": 16.5,
+    "source": "https://www.delarte.fr/products/parma-e-bufala/ft009617"
+  },
+  {
+    "id": "chevre-miel-speck",
+    "name": "Chèvre, miel & speck",
+    "description": "Crème, mozzarella, chèvre, jambon speck, roquette et une touche de miel.",
+    "base": "creme",
+    "vegetarian": false,
+    "spicy": false,
+    "price": 15.5,
+    "source": "https://www.delarte.fr/products/chevre-et-miel/ft004164"
+  },
+  {
+    "id": "carbonara",
+    "name": "Carbonara",
+    "description": "Crème, mozzarella, pancetta et œuf.",
+    "base": "creme",
+    "vegetarian": false,
+    "spicy": false,
+    "price": 14,
+    "source": "https://www.delarte.fr/products/carbonara/ft004175"
+  },
+  {
+    "id": "salmone",
+    "name": "Salmone",
+    "description": "Crème, mozzarella, saumon fumé, pousses d’épinard et pesto vert.",
+    "base": "creme",
+    "vegetarian": false,
+    "spicy": false,
+    "price": 16.5,
+    "source": "https://www.delarte.fr/products/salmone/ft004174"
+  }
+]

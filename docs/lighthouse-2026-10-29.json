@@ -1,0 +1,576 @@
+{
+  "auditDate": "2026-10-29",
+  "scope": "Local production build; not deployed-host or CrUX evidence",
+  "lighthouseVersion": "13.6.0",
+  "browser": "HeadlessChrome/156.0.0.0",
+  "profiles": [
+    "simulated mobile",
+    "desktop"
+  ],
+  "themes": [
+    "light",
+    "dark"
+  ],
+  "runs": [
+    {
+      "name": "accueil-mobile-clair",
+      "url": "http://127.0.0.1:4176/",
+      "theme": "light",
+      "device": "mobile",
+      "version": "13.6.0",
+      "date": "2026-10-29T15:27:14.784Z",
+      "scores": {
+        "performance": 99,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "lcpMs": 2119.436,
+        "cls": 0,
+        "tbtMs": 0
+      },
+      "warnings": []
+    },
+    {
+      "name": "carte-mobile-clair",
+      "url": "http://127.0.0.1:4176/la-carte/",
+      "theme": "light",
+      "device": "mobile",
+      "version": "13.6.0",
+      "date": "2026-10-29T15:27:27.268Z",
+      "scores": {
+        "performance": 97,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "lcpMs": 2124.9826,
+        "cls": 0,
+        "tbtMs": 65
+      },
+      "warnings": []
+    },
+    {
+      "name": "infos-mobile-clair",
+      "url": "http://127.0.0.1:4176/infos-pratiques/",
+      "theme": "light",
+      "device": "mobile",
+      "version": "13.6.0",
+      "date": "2026-10-29T15:27:40.495Z",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "lcpMs": 777.262,
+        "cls": 0,
+        "tbtMs": 0
+      },
+      "warnings": []
+    },
+    {
+      "name": "mentions-mobile-clair",
+      "url": "http://127.0.0.1:4176/mentions-legales/",
+      "theme": "light",
+      "device": "mobile",
+      "version": "13.6.0",
+      "date": "2026-10-29T15:27:52.163Z",
+      "scores": {
+        "performance": 99,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 66
+      },
+      "metrics": {
+        "lcpMs": 772.5226,
+        "cls": 0,
+        "tbtMs": 0
+      },
+      "warnings": []
+    },
+    {
+      "name": "confidentialite-mobile-clair",
+      "url": "http://127.0.0.1:4176/confidentialite/",
+      "theme": "light",
+      "device": "mobile",
+      "version": "13.6.0",
+      "date": "2026-10-29T15:28:04.692Z",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 66
+      },
+      "metrics": {
+        "lcpMs": 1031.2782,
+        "cls": 0,
+        "tbtMs": 0
+      },
+      "warnings": []
+    },
+    {
+      "name": "cgu-mobile-clair",
+      "url": "http://127.0.0.1:4176/cgu/",
+      "theme": "light",
+      "device": "mobile",
+      "version": "13.6.0",
+      "date": "2026-10-29T15:28:16.649Z",
+      "scores": {
+        "performance": 99,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 66
+      },
+      "metrics": {
+        "lcpMs": 765.2150999999999,
+        "cls": 0,
+        "tbtMs": 1
+      },
+      "warnings": []
+    },
+    {
+      "name": "credits-mobile-clair",
+      "url": "http://127.0.0.1:4176/credits/",
+      "theme": "light",
+      "device": "mobile",
+      "version": "13.6.0",
+      "date": "2026-10-29T15:28:29.499Z",
+      "scores": {
+        "performance": 99,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 66
+      },
+      "metrics": {
+        "lcpMs": 766.8127,
+        "cls": 0,
+        "tbtMs": 0
+      },
+      "warnings": []
+    },
+    {
+      "name": "accueil-desktop-clair",
+      "url": "http://127.0.0.1:4176/",
+      "theme": "light",
+      "device": "desktop",
+      "version": "13.6.0",
+      "date": "2026-10-29T15:28:42.415Z",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "lcpMs": 443.8406,
+        "cls": 0.0006479517146717452,
+        "tbtMs": 0
+      },
+      "warnings": []
+    },
+    {
+      "name": "carte-desktop-clair",
+      "url": "http://127.0.0.1:4176/la-carte/",
+      "theme": "light",
+      "device": "desktop",
+      "version": "13.6.0",
+      "date": "2026-10-29T15:28:53.886Z",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "lcpMs": 481.9779,
+        "cls": 0,
+        "tbtMs": 0
+      },
+      "warnings": []
+    },
+    {
+      "name": "infos-desktop-clair",
+      "url": "http://127.0.0.1:4176/infos-pratiques/",
+      "theme": "light",
+      "device": "desktop",
+      "version": "13.6.0",
+      "date": "2026-10-29T15:29:05.376Z",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "lcpMs": 222.9287,
+        "cls": 0.0006479517146717452,
+        "tbtMs": 0
+      },
+      "warnings": []
+    },
+    {
+      "name": "mentions-desktop-clair",
+      "url": "http://127.0.0.1:4176/mentions-legales/",
+      "theme": "light",
+      "device": "desktop",
+      "version": "13.6.0",
+      "date": "2026-10-29T15:29:19.014Z",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 66
+      },
+      "metrics": {
+        "lcpMs": 213.20389999999998,
+        "cls": 0,
+        "tbtMs": 0
+      },
+      "warnings": []
+    },
+    {
+      "name": "confidentialite-desktop-clair",
+      "url": "http://127.0.0.1:4176/confidentialite/",
+      "theme": "light",
+      "device": "desktop",
+      "version": "13.6.0",
+      "date": "2026-10-29T15:29:29.533Z",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 66
+      },
+      "metrics": {
+        "lcpMs": 228.68939999999998,
+        "cls": 0,
+        "tbtMs": 0
+      },
+      "warnings": []
+    },
+    {
+      "name": "cgu-desktop-clair",
+      "url": "http://127.0.0.1:4176/cgu/",
+      "theme": "light",
+      "device": "desktop",
+      "version": "13.6.0",
+      "date": "2026-10-29T15:29:40.144Z",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 66
+      },
+      "metrics": {
+        "lcpMs": 212.6178,
+        "cls": 0,
+        "tbtMs": 0
+      },
+      "warnings": []
+    },
+    {
+      "name": "credits-desktop-clair",
+      "url": "http://127.0.0.1:4176/credits/",
+      "theme": "light",
+      "device": "desktop",
+      "version": "13.6.0",
+      "date": "2026-10-29T15:29:50.944Z",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 66
+      },
+      "metrics": {
+        "lcpMs": 232.53520000000003,
+        "cls": 0.0006479517146717452,
+        "tbtMs": 0
+      },
+      "warnings": []
+    },
+    {
+      "name": "accueil-mobile-sombre",
+      "url": "http://127.0.0.1:4176/",
+      "theme": "dark",
+      "device": "mobile",
+      "version": "13.6.0",
+      "date": "2026-10-29T15:30:01.817Z",
+      "scores": {
+        "performance": 98,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "lcpMs": 2128.179,
+        "cls": 0,
+        "tbtMs": 0
+      },
+      "warnings": []
+    },
+    {
+      "name": "carte-mobile-sombre",
+      "url": "http://127.0.0.1:4176/la-carte/",
+      "theme": "dark",
+      "device": "mobile",
+      "version": "13.6.0",
+      "date": "2026-10-29T15:30:15.094Z",
+      "scores": {
+        "performance": 98,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "lcpMs": 2129.892,
+        "cls": 0,
+        "tbtMs": 35
+      },
+      "warnings": []
+    },
+    {
+      "name": "infos-mobile-sombre",
+      "url": "http://127.0.0.1:4176/infos-pratiques/",
+      "theme": "dark",
+      "device": "mobile",
+      "version": "13.6.0",
+      "date": "2026-10-29T15:30:27.970Z",
+      "scores": {
+        "performance": 99,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "lcpMs": 770.9849999999999,
+        "cls": 0,
+        "tbtMs": 0
+      },
+      "warnings": []
+    },
+    {
+      "name": "mentions-mobile-sombre",
+      "url": "http://127.0.0.1:4176/mentions-legales/",
+      "theme": "dark",
+      "device": "mobile",
+      "version": "13.6.0",
+      "date": "2026-10-29T15:30:40.604Z",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 66
+      },
+      "metrics": {
+        "lcpMs": 1108.6159,
+        "cls": 0,
+        "tbtMs": 0
+      },
+      "warnings": []
+    },
+    {
+      "name": "confidentialite-mobile-sombre",
+      "url": "http://127.0.0.1:4176/confidentialite/",
+      "theme": "dark",
+      "device": "mobile",
+      "version": "13.6.0",
+      "date": "2026-10-29T15:30:52.405Z",
+      "scores": {
+        "performance": 99,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 66
+      },
+      "metrics": {
+        "lcpMs": 766.6058,
+        "cls": 0,
+        "tbtMs": 0
+      },
+      "warnings": []
+    },
+    {
+      "name": "cgu-mobile-sombre",
+      "url": "http://127.0.0.1:4176/cgu/",
+      "theme": "dark",
+      "device": "mobile",
+      "version": "13.6.0",
+      "date": "2026-10-29T15:31:04.972Z",
+      "scores": {
+        "performance": 99,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 66
+      },
+      "metrics": {
+        "lcpMs": 765.2713000000001,
+        "cls": 0,
+        "tbtMs": 0
+      },
+      "warnings": []
+    },
+    {
+      "name": "credits-mobile-sombre",
+      "url": "http://127.0.0.1:4176/credits/",
+      "theme": "dark",
+      "device": "mobile",
+      "version": "13.6.0",
+      "date": "2026-10-29T15:31:17.530Z",
+      "scores": {
+        "performance": 99,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 66
+      },
+      "metrics": {
+        "lcpMs": 1072.6523,
+        "cls": 0,
+        "tbtMs": 0
+      },
+      "warnings": []
+    },
+    {
+      "name": "accueil-desktop-sombre",
+      "url": "http://127.0.0.1:4176/",
+      "theme": "dark",
+      "device": "desktop",
+      "version": "13.6.0",
+      "date": "2026-10-29T15:31:30.095Z",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "lcpMs": 434.2866,
+        "cls": 0,
+        "tbtMs": 0
+      },
+      "warnings": []
+    },
+    {
+      "name": "carte-desktop-sombre",
+      "url": "http://127.0.0.1:4176/la-carte/",
+      "theme": "dark",
+      "device": "desktop",
+      "version": "13.6.0",
+      "date": "2026-10-29T15:31:41.122Z",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "lcpMs": 485.4774,
+        "cls": 0,
+        "tbtMs": 0
+      },
+      "warnings": []
+    },
+    {
+      "name": "infos-desktop-sombre",
+      "url": "http://127.0.0.1:4176/infos-pratiques/",
+      "theme": "dark",
+      "device": "desktop",
+      "version": "13.6.0",
+      "date": "2026-10-29T15:31:52.363Z",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "lcpMs": 227.80650000000003,
+        "cls": 0.0006479517146717452,
+        "tbtMs": 0
+      },
+      "warnings": []
+    },
+    {
+      "name": "mentions-desktop-sombre",
+      "url": "http://127.0.0.1:4176/mentions-legales/",
+      "theme": "dark",
+      "device": "desktop",
+      "version": "13.6.0",
+      "date": "2026-10-29T15:32:03.110Z",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 66
+      },
+      "metrics": {
+        "lcpMs": 211.4993,
+        "cls": 0,
+        "tbtMs": 0
+      },
+      "warnings": []
+    },
+    {
+      "name": "confidentialite-desktop-sombre",
+      "url": "http://127.0.0.1:4176/confidentialite/",
+      "theme": "dark",
+      "device": "desktop",
+      "version": "13.6.0",
+      "date": "2026-10-29T15:32:13.489Z",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 66
+      },
+      "metrics": {
+        "lcpMs": 210.43529999999998,
+        "cls": 0,
+        "tbtMs": 0
+      },
+      "warnings": []
+    },
+    {
+      "name": "cgu-desktop-sombre",
+      "url": "http://127.0.0.1:4176/cgu/",
+      "theme": "dark",
+      "device": "desktop",
+      "version": "13.6.0",
+      "date": "2026-10-29T15:32:24.498Z",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 66
+      },
+      "metrics": {
+        "lcpMs": 218.2167,
+        "cls": 0,
+        "tbtMs": 0
+      },
+      "warnings": []
+    },
+    {
+      "name": "credits-desktop-sombre",
+      "url": "http://127.0.0.1:4176/credits/",
+      "theme": "dark",
+      "device": "desktop",
+      "version": "13.6.0",
+      "date": "2026-10-29T15:32:35.284Z",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 66
+      },
+      "metrics": {
+        "lcpMs": 250.406,
+        "cls": 0,
+        "tbtMs": 0
+      },
+      "warnings": []
+    }
+  ]
+}
