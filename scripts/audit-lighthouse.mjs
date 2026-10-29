@@ -26,7 +26,9 @@ const { default: desktopConfig } = await import(pathToFileURL(path.join(lighthou
 const directory = path.join(root, '.codex/qa/lighthouse');
 await mkdir(directory, { recursive: true });
 
-const pages = [{ name: 'accueil', route: '/' }, { name: 'carte', route: '/la-carte/' }, { name: 'infos', route: '/infos-pratiques/' }];
+const site = JSON.parse(await readFile(path.join(root, 'data/site.json'), 'utf8'));
+const basePath = new URL(site.siteUrl).pathname.replace(/\/+$/, '');
+const pages = [{ name: 'accueil', route: `${basePath}/` }, { name: 'carte', route: `${basePath}/la-carte/` }, { name: 'infos', route: `${basePath}/infos-pratiques/` }];
 const summary = [];
 for (const theme of ['light', 'dark']) {
   for (const device of ['mobile', 'desktop']) {

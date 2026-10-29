@@ -25,7 +25,7 @@ Revue du 28 octobre 2026, après l’audit initial et l’ajout des tests / CI. 
 - Tests navigateur reproductibles : 11 scénarios, six profils, 66 vérifications réussies en clair et sombre.
 - 22 tests Node, dont des preuves négatives sur fichier privé, aperçu non indexable, CSS hors budget et URL Pages incompatible.
 - CI Linux / Windows avec versions verrouillées, audit npm, vérification des workflows et rapports de test conservés.
-- Livraison manuelle GitHub Pages liée à la validation du même commit ; artefact public contrôlé, domaine canonique exigé et permissions limitées.
+- Livraison automatique GitHub Pages sur push à `main`, après validation du même commit ; artefact public contrôlé, URL canonique du projet exigée et permissions limitées.
 - Budgets de ressources automatiques ; aucune dépendance npm de production ajoutée.
 
 La préparation locale ne vaut pas preuve d’exécution GitHub. Voir [CI/CD et activation](CI_CD.md), [audit initial](AUDIT_COMPLET.md) et [référencement](SEO_REFERENCEMENT.md).

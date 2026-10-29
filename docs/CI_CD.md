@@ -2,7 +2,7 @@
 
 ## Fonctionnement
 
-`.github/workflows/ci.yml` s’exécute sur push, pull request ou lancement manuel. Il est aussi réutilisé par la livraison Pages pour tester le commit exact à publier.
+`.github/workflows/ci.yml` s’exécute sur chaque push, pull request ou lancement manuel. `.github/workflows/deploy-pages.yml` s’exécute sur chaque push à `main` et appelle la CI réutilisable pour valider l’artefact exact avant la livraison ; un push à `main` a donc une CI de vérification et la validation liée à la livraison.
 
 - `actionlint` valide les workflows ; son archive est épinglée en version 1.7.12 et vérifiée par SHA-256.
 - La matrice Node couvre Linux 22 / 24 et Windows 24 : installation verrouillée, syntaxe, 24 tests Node, génération et contrôle du livrable.
@@ -27,7 +27,7 @@ Les actions GitHub officielles sont épinglées sur leur SHA de commit. La CI ut
 
 Ces limites gardent une marge au-dessus du site actuel et détectent une régression de poids. Elles ne mesurent pas les Core Web Vitals. Une évolution justifiant un nouveau plafond doit être examinée avec son effet réel sur le chargement.
 
-Le build produit `.nojekyll` et, en production, `CNAME` depuis `data/site.json`. Le contrôle vérifie les fichiers attendus, mais ne remplace pas une recherche de secrets dans l’historique du dépôt.
+Le build produit `.nojekyll` et ne génère pas de `CNAME` : le site utilise l’URL standard d’un dépôt GitHub Pages de projet. Le contrôle vérifie les fichiers attendus, mais ne remplace pas une recherche de secrets dans l’historique du dépôt.
 
 ## Exécuter localement
 
@@ -52,20 +52,19 @@ npm run test:e2e:report
 
 ## Activer la livraison
 
-La publication est **manuelle** : `.github/workflows/deploy-pages.yml` ne réagit pas aux push. Aucun workflow distant, paramètre Pages ou DNS n’a été modifié pendant l’implémentation.
+La publication est automatique sur chaque push à `main` : `.github/workflows/deploy-pages.yml` appelle la CI, vérifie l’artefact de ce run et publie seulement si toutes les étapes réussissent. La CI indépendante reste visible pour le push. `workflow_dispatch` reste disponible pour relancer une livraison manuellement. Les pull requests et les autres branches ne sont pas publiées.
 
-Après validation des photos, des tarifs, des horaires et des mentions légales :
+Le site contient encore des photos temporaires, des tarifs fictifs et des exemples juridiques. Ils seront publiés avec chaque push à `main` jusqu’à leur remplacement.
 
-1. Faire intégrer ces fichiers au dépôt par son propriétaire, puis vérifier la première exécution réelle de CI.
-2. Dans Settings > Pages, choisir GitHub Actions comme source. La disponibilité pour un dépôt privé dépend du plan GitHub.
-3. Vérifier la propriété du domaine et configurer `verone.fr` dans Pages avant de modifier le DNS. Suivre la procédure officielle pour les enregistrements adaptés ; aucun propriétaire GitHub ou enregistrement DNS n’est inventé ici.
-4. Activer HTTPS lorsque le certificat est prêt. Le contrôle de livraison exige la base HTTPS `https://verone.fr`, sans sous-dossier.
-5. Restreindre l’environnement `github-pages` à la branche par défaut. Les protections et éventuelles approbations se règlent dans GitHub ; elles ne sont pas créées par ces fichiers.
-6. Depuis Actions, lancer **Livraison GitHub Pages**, en sélectionnant la branche par défaut.
+1. Pousser les modifications sur `main`. Le dépôt utilise déjà le workflow GitHub Actions ; la première livraison réelle doit confirmer ses permissions et sa configuration.
+2. Dans Settings > Pages, garder GitHub Actions comme source. La disponibilité pour un dépôt privé dépend du plan GitHub.
+3. Retirer le domaine personnalisé `verone.fr` s’il est encore renseigné. Le livrable et le contrôle Pages exigent `https://bastienlopez.github.io/pizzeria_toto`, sans slash final.
+4. Vérifier que l’environnement `github-pages` autorise la branche par défaut. Des restrictions ou approbations configurées dans GitHub peuvent bloquer ou mettre en attente le job ; elles ne sont pas modifiées par ces fichiers.
+5. Pour une relance manuelle, ouvrir Actions > **Livraison GitHub Pages** > Run workflow sur `main`.
 
-La livraison refuse les autres branches, rejoue toute la CI, récupère son artefact validé, compare l’URL annoncée par Pages au domaine canonique, recontrôle `dist/`, puis publie cet artefact. Un échec en amont empêche le job de publication. Les publications ne s’exécutent pas simultanément.
+La livraison refuse les autres branches, exécute toute la CI sur le commit poussé, récupère son artefact, compare l’URL annoncée par Pages à `siteUrl`, recontrôle `dist/`, puis publie cet artefact. Un échec en amont empêche le job de publication. Les publications ne s’exécutent pas simultanément.
 
-Le fichier CNAME ne configure pas à lui seul le domaine dans GitHub. Cette version cible la racine de `verone.fr` : l’URL provisoire `https://proprietaire.github.io/depot/` n’est pas une cible compatible avec les liens absolus du site.
+Le build adapte liens, images, polices, canonicals, données structurées et sitemap au préfixe `/pizzeria_toto/`. Le site demeure à l’URL GitHub Pages de projet ; il ne configure pas de domaine DNS personnalisé.
 
 Références : [workflows Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages), [source de publication et CNAME](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site), [domaine personnalisé](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site).
 
@@ -73,7 +72,7 @@ Références : [workflows Pages](https://docs.github.com/en/pages/getting-starte
 
 Le workflow Pages ne traite pas `_headers` et `_redirects`. Les en-têtes HTTP et les redirections 301 contrôlés sur le serveur Node local ne constituent donc pas une preuve de leur présence sur Pages. La CSP HTML reste dans chaque page ; les protections nécessitant un en-tête HTTP, les règles de cache et les anciennes URL devront être vérifiées sur l’hôte réel.
 
-Après publication, vérifier les trois pages principales, CSS / images / polices, canonical, robots, sitemap, réponse 404 et version HTTPS du domaine. Suivre ensuite [la procédure Search Console](SEO_REFERENCEMENT.md). Aucun test distant de cette version ni mesure de production n’a encore été effectué.
+Après la première publication, vérifier les trois pages principales sous `/pizzeria_toto/`, CSS / images / polices, canonical, sitemap, réponse 404 et HTTPS. `robots.txt` est sous le chemin du projet ; les règles robots à la racine de `bastienlopez.github.io` ne sont pas configurées par ce dépôt. Suivre ensuite [la procédure Search Console](SEO_REFERENCEMENT.md). Aucun test distant de cette nouvelle version ni mesure de production n’a encore été effectué.
 
 Résultats des correctifs du 29 octobre : syntaxe, 24 tests Node, 78 vérifications navigateur, build et contrôle des 56 fichiers publiables réussis ; npm audit à zéro. Le contrôle npm ci --ignore-scripts --dry-run passe, sans prétendre à une réinstallation complète. `actionlint` valide localement les deux workflows avec son contrôle ShellCheck désactivé sur Windows ; la CI Linux demande le contrôle shell complet. Les runners Linux / Node 22, GitHub Actions, les permissions du dépôt, le domaine et la publication effective restent **NON PROUVÉS** jusqu’à leur première exécution distante.
 

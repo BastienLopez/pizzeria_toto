@@ -16,6 +16,8 @@ export const securityHeaders = {
   'Permissions-Policy': 'camera=(), microphone=(), geolocation=(), payment=()',
 };
 const mime = { '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.mjs': 'text/javascript; charset=utf-8', '.xml': 'application/xml; charset=utf-8', '.webp': 'image/webp', '.avif': 'image/avif', '.jpg': 'image/jpeg', '.png': 'image/png', '.svg': 'image/svg+xml', '.woff2': 'font/woff2', '.txt': 'text/plain; charset=utf-8' };
+const siteConfiguration = JSON.parse(await readFile(path.join(root, 'data/site.json'), 'utf8'));
+const siteBasePath = new URL(siteConfiguration.siteUrl).pathname.replace(/\/+$/, '');
 
 function acceptsBrotli(header = '') {
   return String(header).split(',').some(part => {
@@ -40,12 +42,14 @@ export function createSiteServer({ preview = true, directory = preview ? '.previ
     }
     try {
       const url = new URL(request.url, 'http://localhost');
-      const pathname = decodeURIComponent(url.pathname);
+      let pathname = decodeURIComponent(url.pathname);
       if (pathname.includes('\0') || pathname.includes('\\') || /(^|\/)\./.test(pathname)) throw new Error('Invalid path');
+      if (siteBasePath && pathname === siteBasePath) { response.writeHead(301, { ...headers, Location: `${siteBasePath}/${url.search}` }); response.end(); return; }
+      if (siteBasePath && pathname.startsWith(`${siteBasePath}/`)) pathname = pathname.slice(siteBasePath.length);
       const legacy = pageDefinitions.find(page => page.file !== '404' && (pathname === `/${page.file}.html` || pathname === `${page.route}index.html`));
       const withoutSlash = pageDefinitions.find(page => page.route !== '/' && page.route.endsWith('/') && pathname === page.route.slice(0, -1));
       const redirect = legacy?.route ?? withoutSlash?.route;
-      if (redirect) { response.writeHead(301, { ...headers, Location: redirect + url.search }); response.end(); return; }
+      if (redirect) { response.writeHead(301, { ...headers, Location: `${siteBasePath}${redirect}${url.search}` }); response.end(); return; }
       if (preview && pathname === '/robots.txt') { response.writeHead(200, { ...headers, 'Content-Type': mime['.txt'] }); response.end(request.method === 'HEAD' ? undefined : 'User-agent: *\nDisallow: /\n'); return; }
       const page = pageDefinitions.find(page => page.route === pathname);
       const relative = page ? page.file === '404' ? '/404.html' : `${page.route}index.html` : pathname;
@@ -84,7 +88,7 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
   const port = Number(process.env.PORT ?? 4173);
   if (!Number.isInteger(port) || port < 1 || port > 65535) throw new Error('PORT doit être un entier de 1 à 65535.');
   const server = createSiteServer({ preview });
-  server.listen(port, '127.0.0.1', () => console.log(`Le Verone — http://127.0.0.1:${port}`));
+  server.listen(port, '127.0.0.1', () => console.log(`Le Verone — http://127.0.0.1:${port}${siteBasePath}/`));
   if (process.argv.includes('--watch')) {
     let timer;
     let building = false;

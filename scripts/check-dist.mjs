@@ -10,16 +10,17 @@ const budgets = { css: 45 * 1024, javascript: 12 * 1024, avif: 100 * 1024, total
 
 export async function checkDist(directory = path.join(root, 'dist'), { pagesUrl } = {}) {
   const site = JSON.parse(await readFile(path.join(root, 'data/site.json'), 'utf8'));
-  if (pagesUrl !== undefined) assert.equal(pagesUrl.replace(/\/$/, ''), site.origin, 'Configurez https://verone.fr dans Settings > Pages avant de publier.');
+  const configuredUrl = new URL(site.siteUrl);
+  const expectedPagesUrl = `${configuredUrl.origin}${configuredUrl.pathname.replace(/\/+$/, '')}`;
+  if (pagesUrl !== undefined) assert.equal(pagesUrl.replace(/\/+$/, ''), expectedPagesUrl, `Configurez ${expectedPagesUrl} dans Settings > Pages avant de publier.`);
   const homepage = await readFile(path.join(directory, 'index.html'), 'utf8');
   assert.match(homepage, /name="robots" content="index, follow, max-image-preview:large"/, 'Livrable non indexable : aperçu interdit.');
-  assert.equal((await readFile(path.join(directory, 'CNAME'), 'utf8')).trim(), new URL(site.origin).hostname, 'Domaine du livrable incorrect.');
   assert.equal((await stat(path.join(directory, '.nojekyll'))).isFile(), true, 'Marqueur statique absent.');
 
   const publicFiles = (await readdir(path.join(root, 'public'), { recursive: true, withFileTypes: true }))
     .filter(entry => entry.isFile()).map(entry => path.relative(path.join(root, 'public'), path.join(entry.parentPath, entry.name)).replaceAll('\\', '/'));
   const htmlFiles = pageDefinitions.map(page => page.file === '404' ? '404.html' : page.route === '/' ? 'index.html' : page.route.slice(1) + 'index.html');
-  const expected = new Set([...publicFiles, ...htmlFiles, 'styles.css', 'app.mjs', 'robots.txt', 'sitemap.xml', '_headers', '_redirects', 'CNAME', '.nojekyll']);
+  const expected = new Set([...publicFiles, ...htmlFiles, 'styles.css', 'app.mjs', 'robots.txt', 'sitemap.xml', '_headers', '_redirects', '.nojekyll']);
   const entries = await readdir(directory, { recursive: true, withFileTypes: true });
   const present = new Set();
   let bytes = 0;

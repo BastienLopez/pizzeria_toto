@@ -1,8 +1,10 @@
 name: Livraison GitHub Pages
 
-# La démonstration contient encore des données provisoires : publication choisie
-# explicitement depuis Actions, après validation des contenus du restaurant.
+# Chaque push sur main publie l’artefact validé à l’URL GitHub Pages du projet.
 on:
+  push:
+    branches:
+      - main
   workflow_dispatch:
 
 permissions:

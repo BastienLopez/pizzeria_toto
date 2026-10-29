@@ -1,6 +1,6 @@
 # Le Verone
 
-Site vitrine en français de la pizzeria Le Verone, 123 rue de Venise, 51100 Reims, préparé pour https://verone.fr. HTML, CSS et JavaScript natifs, générateur Node.js : aucune dépendance npm de production.
+Site vitrine en français de la pizzeria Le Verone, 123 rue de Venise, 51100 Reims, préparé pour https://bastienlopez.github.io/pizzeria_toto/. HTML, CSS et JavaScript natifs, générateur Node.js : aucune dépendance npm de production.
 
 ## Pages
 - / : présentation du restaurant, photos culinaires, adresse, téléphone et aperçu de la carte.
@@ -16,7 +16,7 @@ Node.js 22.12 ou supérieur ; testé sous Windows avec Node.js 24.22.1. Aucun np
 npm run dev
 ~~~
 
-Ouvrir http://127.0.0.1:4173/. Les sources sont surveillées ; recharger le navigateur après modification. Arrêter avec Ctrl+C.
+Ouvrir http://127.0.0.1:4173/pizzeria_toto/. Les sources sont surveillées ; recharger le navigateur après modification. Arrêter avec Ctrl+C.
 
 ~~~sh
 npm run check
@@ -26,7 +26,7 @@ npm run preview
 ~~~
 
 - dev et preview génèrent dans .preview/ et restent non indexables.
-- build génère dans dist/ une version préparée à l’indexation pour verone.fr : trois pages principales indexables, pages légales provisoires et 404 en noindex.
+- build génère dans dist/ une version préparée à l’indexation pour https://bastienlopez.github.io/pizzeria_toto/ : trois pages principales indexables, pages légales provisoires et 404 en noindex.
 - Les tests Node génèrent dans .test-site/ et utilisent une copie temporaire pour le contrat des coordonnées. Les tests navigateur construisent et servent dist/ ; ne pas lancer un autre build en même temps. L’aperçu utilise .preview/.
 - Ces trois dossiers sont générés et remplaçables. Ne pas les modifier ni y conserver de contenu source.
 - Le serveur fourni écoute uniquement sur 127.0.0.1 ; il sert à la prévisualisation, pas à héberger publiquement le restaurant.
@@ -36,7 +36,7 @@ npm run preview
 
 | Fichier | Rôle |
 | --- | --- |
-| data/site.json | Nom, domaine, téléphone, adresse et état des informations fournies |
+| data/site.json | Nom, URL de base incluant le chemin du dépôt, téléphone, adresse et état des informations fournies |
 | data/menu.json | Identifiants, noms, descriptions, bases, classement végétarien, prix d’exemple et sources |
 | src/layout.html | Navigation commune, pied de page et métadonnées |
 | src/index.html, src/la-carte.html, src/infos-pratiques.html | Contenus des trois pages principales |
@@ -50,7 +50,7 @@ npm run preview
 | scripts/check-dist.mjs | Contrôle du livrable, domaine Pages et budgets de ressources |
 | tests/site.test.mjs | 24 tests Node.js |
 | playwright.config.mjs, tests/browser/site.spec.mjs | 78 vérifications Chromium / WebKit, clair / sombre |
-| .github/workflows/ | CI Linux / Windows et livraison manuelle GitHub Pages |
+| .github/workflows/ | CI Linux / Windows et livraison automatique GitHub Pages sur push à main |
 | public/images/, public/fonts/ | Photos AVIF / WebP, aperçu social, polices locales et licences |
 
 La préférence clair / sombre est la seule donnée conservée dans localStorage, sous verone-theme. Aucun compte, formulaire, cookie, paiement, panier, publicité ou outil de mesure d’audience. Sans choix, le thème suit l’appareil ; le stockage refusé n’empêche pas la navigation.
@@ -85,12 +85,12 @@ Chrome doit être installé ; CHROME_PATH permet de désigner son exécutable si
 
 Le mode --audit sert le build de production sur loopback sans noindex HTTP, pour mesurer les métadonnées destinées à la production. Il ne publie rien. Les mesures sont séquentielles pour éviter la contention entre audits.
 
-## Avant publication
+## Données de démonstration et lancement professionnel
 Photos Del Arte temporaires et tarifs fictifs clairement annoncés. Ni partenariat ni licence commerciale des photos revendiqués. Aucun cliché réel de l’intérieur du restaurant, témoignage, label, historique ou garantie d’allergènes inventé.
 
 À finaliser : droits / remplacement des photos, recettes et tarifs réels, composition des fromages et allergènes, horaires, identité juridique et e-mail professionnel. Les mentions contiennent des exemples juridiques explicitement fictifs demandés pour la maquette. GitHub Pages a été choisi ; ses paramètres réels et les informations contractuelles restent à vérifier. L’adresse et le domaine ont été fournis par le propriétaire ; ils ne remplacent pas ces informations.
 
-Le dossier dist/ est préparé pour https://verone.fr, avec canonical, Open Graph absolu, JSON-LD Restaurant, sitemap et robots autorisant les trois pages principales. Cette préparation ne prouve pas un déploiement, une propriété Search Console ni une indexation.
+Le dossier dist/ est préparé pour https://bastienlopez.github.io/pizzeria_toto/, avec canonical, Open Graph absolu, JSON-LD Restaurant et sitemap pour les trois pages principales. `robots.txt` est publié sous le chemin du projet ; ce dépôt ne contrôle pas le fichier robots à la racine de l’hôte. Cette préparation ne prouve pas un déploiement, une propriété Search Console ni une indexation.
 
 Aucun commit, push, fetch, déploiement, DNS ou changement distant effectué.
 
@@ -104,9 +104,9 @@ npm run validate
 npm run test:e2e
 ~~~
 
-GitHub Pages a été choisi pour la livraison. Le workflow de publication est manuel et réexécute la CI avant de publier uniquement l’artefact validé. Il exige la branche par défaut et la configuration HTTPS de verone.fr. Aucun workflow distant ou déploiement n’a été lancé ici.
+Chaque push sur `main` déclenche **Livraison GitHub Pages**. Le workflow réexécute la CI sur le commit poussé et ne publie que l’artefact validé ; un lancement manuel reste disponible dans Actions. Il exige l’URL Pages `https://bastienlopez.github.io/pizzeria_toto`. Dans Settings > Pages, la source doit être GitHub Actions et aucun domaine personnalisé ne doit remplacer cette URL. Les présentes modifications sont locales : elles ne seront utilisées qu’après leur push ; aucune publication n’a été déclenchée ici.
 
-Voir [activation, droits, tests et limites Pages](docs/CI_CD.md). Le fichier CNAME ne remplace pas la configuration du domaine dans GitHub. Les règles _headers / _redirects du serveur local ne sont pas appliquées par ce workflow Pages.
+Voir [déclencheurs, droits, tests et limites Pages](docs/CI_CD.md). Aucun fichier CNAME n’est généré pour ce site de projet. Les règles _headers / _redirects du serveur local ne sont pas appliquées par ce workflow Pages.
 
 ## Rapports
 - [Axes d’amélioration prioritaires](docs/AMELIORATIONS.md)

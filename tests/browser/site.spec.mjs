@@ -2,11 +2,13 @@ import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { readFile } from 'node:fs/promises';
 
-const routes = ['/', '/la-carte/', '/infos-pratiques/'];
 const site = JSON.parse(await readFile(new URL('../../data/site.json', import.meta.url), 'utf8'));
+const basePath = new URL(site.siteUrl).pathname.replace(/\/+$/, '');
+const sitePath = route => `${basePath}${route}`;
+const routes = [sitePath('/'), sitePath('/la-carte/'), sitePath('/infos-pratiques/')];
 
 test('la navigation mène aux pages et le menu mobile rend le focus après Échap', async ({ page, isMobile }) => {
-  await page.goto('/');
+  await page.goto(sitePath('/'));
   const navigation = page.getByRole('navigation', { name: 'Navigation principale', exact: true });
   if (isMobile) {
     const menu = page.locator('button[aria-controls="navigation"]');
@@ -30,7 +32,7 @@ test('la navigation mène aux pages et le menu mobile rend le focus après Écha
 });
 
 test('les filtres se combinent et la réinitialisation restaure les huit pizzas', async ({ page }) => {
-  await page.goto('/la-carte/');
+  await page.goto(sitePath('/la-carte/'));
   const cards = page.locator('.pizza-card:visible');
   const vegetarian = page.getByRole('checkbox', { name: 'Végétariennes', exact: true });
   const all = page.getByRole('button', { name: 'Toutes les pizzas', exact: true });
@@ -56,7 +58,7 @@ test('les filtres se combinent et la réinitialisation restaure les huit pizzas'
 });
 
 test('la fiche pizza est accessible au clavier, se ferme et rend le focus', async ({ page }) => {
-  await page.goto('/la-carte/');
+  await page.goto(sitePath('/la-carte/'));
   const opener = page.getByRole('button', { name: 'Découvrir la pizza Regina', exact: true });
   await opener.focus();
   await opener.press('Enter');
@@ -80,7 +82,7 @@ test('la fiche pizza est accessible au clavier, se ferme et rend le focus', asyn
 test('la fiche fermée ne télécharge aucune image supplémentaire et affiche le bon visuel à l’ouverture', async ({ page }, testInfo) => {
   const requests = [];
   page.on('request', request => { if (/\/images\/[^?]+\.(?:avif|webp)(?:\?|$)/.test(request.url())) requests.push(request.url()); });
-  await page.goto('/la-carte/');
+  await page.goto(sitePath('/la-carte/'));
   await expect(page.locator('[data-pizza-details]').first()).toBeVisible();
   const firstImage = page.locator('.pizza-card img').first();
   await expect.poll(() => firstImage.evaluate(image => image.complete && image.naturalWidth > 0)).toBe(true);
@@ -127,7 +129,7 @@ test('les liens de navigation gardent une cible tactile de 44 px sur tablette', 
 test('le thème suit l’appareil puis conserve le choix explicite entre les pages', async ({ page }, testInfo) => {
   const initial = testInfo.project.use.colorScheme;
   const opposite = initial === 'dark' ? 'light' : 'dark';
-  await page.goto('/');
+  await page.goto(sitePath('/'));
   const html = page.locator('html');
   await expect(html).toHaveAttribute('data-theme', initial);
   await page.emulateMedia({ colorScheme: opposite });
@@ -139,7 +141,7 @@ test('le thème suit l’appareil puis conserve le choix explicite entre les pag
   await expect(html).toHaveAttribute('data-theme', initial);
   await page.reload();
   await expect(html).toHaveAttribute('data-theme', initial);
-  await page.goto('/infos-pratiques/');
+  await page.goto(sitePath('/infos-pratiques/'));
   await expect(html).toHaveAttribute('data-theme', initial);
   await expect(page.locator('[data-theme-toggle]')).toHaveAttribute('aria-pressed', String(initial === 'dark'));
 });
@@ -150,7 +152,7 @@ test('le stockage refusé ne casse ni le thème ni la carte', async ({ page, con
   });
   const failures = [];
   page.on('pageerror', error => failures.push(error.message));
-  await page.goto('/la-carte/');
+  await page.goto(sitePath('/la-carte/'));
   await expect(page.locator('html')).toHaveAttribute('data-theme', testInfo.project.use.colorScheme);
   await page.locator('[data-theme-toggle]').click();
   await expect(page.locator('html')).toHaveAttribute('data-theme', testInfo.project.use.colorScheme === 'dark' ? 'light' : 'dark');
@@ -179,7 +181,7 @@ test('les pages principales chargent sans erreur ni débordement horizontal', as
 });
 
 test('la FAQ s’ouvre et se referme au clavier', async ({ page }) => {
-  await page.goto('/infos-pratiques/');
+  await page.goto(sitePath('/infos-pratiques/'));
   const question = page.locator('summary').filter({ hasText: 'Comment passer commande ?' });
   const answer = page.locator('details').filter({ has: question });
   await question.focus();
@@ -204,7 +206,7 @@ for (const route of routes) {
 test.describe('consultation sans JavaScript', () => {
   test.use({ javaScriptEnabled: false });
   test('la carte, la navigation et le téléphone restent accessibles', async ({ page }) => {
-    await page.goto('/la-carte/');
+    await page.goto(sitePath('/la-carte/'));
     await expect(page.locator('.pizza-card:visible')).toHaveCount(8);
     await expect(page.getByRole('navigation', { name: 'Navigation principale', exact: true })).toBeVisible();
     await expect(page.locator('[data-menu-controls]')).toBeHidden();

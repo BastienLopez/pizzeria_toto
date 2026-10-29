@@ -23,16 +23,17 @@ const icons = {
 };
 const euros = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' });
 
-function menuCard(pizza, eager = false, heading = 3) {
+function menuCard(pizza, eager = false, heading = 3, basePath = '') {
   if (!/^[a-z0-9-]+$/.test(pizza.id) || !['tomate', 'creme'].includes(pizza.base)
       || typeof pizza.vegetarian !== 'boolean' || typeof pizza.spicy !== 'boolean'
       || !Number.isFinite(pizza.price) || pizza.price <= 0) throw new Error(`Pizza invalide : ${pizza.id}`);
   const id = escapeHtml(pizza.id);
   const name = escapeHtml(pizza.name);
+  const imageUrl = size => `${basePath}/images/${id}-${size}`;
   const badges = [pizza.vegetarian ? `<span class="pizza-badge">${icons.LEAF_ICON}Végétarienne</span>` : '',
     pizza.spicy ? '<span class="pizza-badge pizza-badge-spicy">Relevée</span>' : ''].join('');
   return `<article class="pizza-card" data-pizza="${id}" data-base="${pizza.base}" data-vegetarian="${pizza.vegetarian}">
-  <div class="pizza-photo"><picture${eager ? ' data-priority-image' : ''}><source type="image/avif" srcset="/images/${id}-360.avif 360w, /images/${id}-600.avif 600w" sizes="(min-width: 1312px) 292px, (min-width: 1100px) 23vw, (min-width: 760px) 29vw, (min-width: 480px) 45vw, 92vw"><img src="/images/${id}-600.webp" srcset="/images/${id}-360.webp 360w, /images/${id}-600.webp 600w" sizes="(min-width: 1312px) 292px, (min-width: 1100px) 23vw, (min-width: 760px) 29vw, (min-width: 480px) 45vw, 92vw" alt="Pizza ${name}, ${escapeHtml(pizza.description.toLowerCase())}" width="600" height="600" loading="${eager ? 'eager' : 'lazy'}"${eager ? ' fetchpriority="high"' : ''} decoding="async"></picture><div class="pizza-badges">${badges}</div></div>
+  <div class="pizza-photo"><picture${eager ? ' data-priority-image' : ''}><source type="image/avif" srcset="${imageUrl('360.avif')} 360w, ${imageUrl('600.avif')} 600w" sizes="(min-width: 1312px) 292px, (min-width: 1100px) 23vw, (min-width: 760px) 29vw, (min-width: 480px) 45vw, 92vw"><img src="${imageUrl('600.webp')}" srcset="${imageUrl('360.webp')} 360w, ${imageUrl('600.webp')} 600w" sizes="(min-width: 1312px) 292px, (min-width: 1100px) 23vw, (min-width: 760px) 29vw, (min-width: 480px) 45vw, 92vw" alt="Pizza ${name}, ${escapeHtml(pizza.description.toLowerCase())}" width="600" height="600" loading="${eager ? 'eager' : 'lazy'}"${eager ? ' fetchpriority="high"' : ''} decoding="async"></picture><div class="pizza-badges">${badges}</div></div>
   <div class="pizza-content"><p class="pizza-base">Base ${pizza.base === 'creme' ? 'crème' : 'tomate'}</p><h${heading} class="pizza-name">${name}</h${heading}><p class="pizza-description">${escapeHtml(pizza.description)}</p><div class="pizza-bottom"><span class="pizza-price">${euros.format(pizza.price)}</span><button class="pizza-info" type="button" data-pizza-details hidden><span aria-hidden="true">+</span><span class="sr-only">Découvrir la pizza ${name}</span></button></div></div>
 </article>`;
 }
@@ -48,14 +49,15 @@ export const pageDefinitions = [
   { file: '404', route: '/404.html', label: 'Page introuvable', title: 'Page introuvable | {{SITE_NAME}}', description: 'Cette page ne figure pas à la carte. Retrouvez {{SITE_NAME}}, ses pizzas et ses coordonnées à {{CITY}}.', indexable: false },
 ];
 
-function structuredData(site, page) {
-  const restaurantId = `${site.origin}/#restaurant`;
+function structuredData(site, page, siteUrl) {
+  const restaurantUrl = `${siteUrl}/`;
+  const restaurantId = `${restaurantUrl}#restaurant`;
   const graph = [
-    { '@type': 'Restaurant', '@id': restaurantId, name: site.name, url: `${site.origin}/`, telephone: site.telephoneInternational, address: { '@type': 'PostalAddress', ...site.address }, servesCuisine: ['Italienne', 'Pizza'], hasMenu: `${site.origin}/la-carte/` },
-    { '@type': 'WebSite', '@id': `${site.origin}/#website`, url: `${site.origin}/`, name: site.name, inLanguage: 'fr-FR', publisher: { '@id': restaurantId } },
-    { '@type': page.file === 'la-carte' ? 'CollectionPage' : 'WebPage', '@id': `${site.origin}${page.route}#webpage`, url: `${site.origin}${page.route}`, name: page.title, description: page.description, inLanguage: 'fr-FR', isPartOf: { '@id': `${site.origin}/#website` }, about: { '@id': restaurantId } },
+    { '@type': 'Restaurant', '@id': restaurantId, name: site.name, url: restaurantUrl, telephone: site.telephoneInternational, address: { '@type': 'PostalAddress', ...site.address }, servesCuisine: ['Italienne', 'Pizza'], hasMenu: `${siteUrl}/la-carte/` },
+    { '@type': 'WebSite', '@id': `${restaurantUrl}#website`, url: restaurantUrl, name: site.name, inLanguage: 'fr-FR', publisher: { '@id': restaurantId } },
+    { '@type': page.file === 'la-carte' ? 'CollectionPage' : 'WebPage', '@id': `${siteUrl}${page.route}#webpage`, url: `${siteUrl}${page.route}`, name: page.title, description: page.description, inLanguage: 'fr-FR', isPartOf: { '@id': `${restaurantUrl}#website` }, about: { '@id': restaurantId } },
   ];
-  if (page.route !== '/' && page.file !== '404') graph.push({ '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Le restaurant', item: `${site.origin}/` }, { '@type': 'ListItem', position: 2, name: page.label, item: `${site.origin}${page.route}` }] });
+  if (page.route !== '/' && page.file !== '404') graph.push({ '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Le restaurant', item: restaurantUrl }, { '@type': 'ListItem', position: 2, name: page.label, item: `${siteUrl}${page.route}` }] });
   const json = JSON.stringify({ '@context': 'https://schema.org', '@graph': graph }).replaceAll('<', '\\u003c');
   return `<script type="application/ld+json">${json}</script>`;
 }
@@ -65,6 +67,12 @@ export async function build({ preview = false, destination = preview ? '.preview
   const output = path.join(root, destination);
   const menu = JSON.parse(await readFile(path.join(root, 'data/menu.json'), 'utf8'));
   if (!Array.isArray(menu) || !menu.length || new Set(menu.map(p => p.id)).size !== menu.length) throw new Error('Carte vide ou identifiants dupliqués.');
+  const site = JSON.parse(await readFile(path.join(root, 'data/site.json'), 'utf8'));
+  const configuredSiteUrl = new URL(site.siteUrl);
+  const basePath = configuredSiteUrl.pathname === '/' ? '' : configuredSiteUrl.pathname.replace(/\/+$/, '');
+  const siteUrl = `${configuredSiteUrl.origin}${basePath}`;
+  if (configuredSiteUrl.protocol !== 'https:' || configuredSiteUrl.username || configuredSiteUrl.password || configuredSiteUrl.search || configuredSiteUrl.hash
+      || site.siteUrl.replace(/\/+$/, '') !== siteUrl || basePath.includes('//') || !/^0\d{9}$/.test(site.telephone)) throw new Error('URL du site ou téléphone invalide.');
   const layout = await readFile(path.join(root, 'src/layout.html'), 'utf8');
   const bootstrap = (await readFile(path.join(root, 'src/theme-init.js'), 'utf8')).replace(/^\uFEFF/, '').replace(/\r\n?/g, '\n');
   if (/<\/script/i.test(bootstrap)) throw new Error('Le script d’initialisation contient une fermeture HTML interdite.');
@@ -72,20 +80,18 @@ export async function build({ preview = false, destination = preview ? '.preview
   const publicFiles = (await readdir(path.join(root, 'public'), { recursive: true })).filter(file => /\.(woff2|webp|avif|jpg|png|svg)$/.test(file)).sort();
   const clientFiles = ['styles.css', 'app.mjs'];
   const fingerprint = createHash('sha256');
+  fingerprint.update(siteUrl);
   fingerprint.update(bootstrap);
   for (const file of clientFiles) fingerprint.update(await readFile(path.join(root, 'src', file)));
   for (const file of publicFiles) fingerprint.update(await readFile(path.join(root, 'public', file)));
   const version = fingerprint.digest('hex').slice(0, 12);
-  const assetPaths = [...clientFiles.map(file => '/' + file), ...publicFiles.map(file => '/' + file.replaceAll('\\', '/'))].sort((a, b) => b.length - a.length);
+  const assetPaths = [...clientFiles.map(file => `${basePath}/${file}`), ...publicFiles.map(file => `${basePath}/${file.replaceAll('\\', '/')}`)].sort((a, b) => b.length - a.length);
   const versionAssets = text => assetPaths.reduce((content, asset) => content.replaceAll(asset, asset + '?v=' + version), text);
-  const site = JSON.parse(await readFile(path.join(root, 'data/site.json'), 'utf8'));
-  const origin = new URL(site.origin);
-  if (origin.protocol !== 'https:' || origin.origin !== site.origin || !/^0\d{9}$/.test(site.telephone)) throw new Error('Domaine ou téléphone invalide.');
   site.telephoneDisplay = site.telephone.match(/.{2}/g).join(' ');
   site.telephoneInternational = '+33' + site.telephone.slice(1);
   const address = `${site.address.streetAddress}, ${site.address.postalCode} ${site.address.addressLocality}`;
   const directions = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(address)}`;
-  const siteTokens = { SITE_NAME: site.name, ORIGIN: site.origin, PHONE: site.telephone, PHONE_DISPLAY: site.telephoneDisplay, ADDRESS: address, STREET: site.address.streetAddress, CITY: site.address.addressLocality, POSTAL_CODE: site.address.postalCode, DIRECTIONS_URL: directions };
+  const siteTokens = { SITE_NAME: site.name, SITE_URL: siteUrl, BASE_PATH: basePath, PHONE: site.telephone, PHONE_DISPLAY: site.telephoneDisplay, ADDRESS: address, STREET: site.address.streetAddress, CITY: site.address.addressLocality, POSTAL_CODE: site.address.postalCode, DIRECTIONS_URL: directions };
   const resolveSiteTokens = text => text.replace(/\{\{([A-Z_]+)\}\}/g, (token, name) => Object.hasOwn(siteTokens, name) ? String(siteTokens[name]) : token);
   icons.MOON_ICON = svg('<path class="moon-icon" d="M20 15a8 8 0 0 1-11-11 9 9 0 1 0 11 11Z"/>');
   icons.SUN_ICON = svg('<g class="sun-icon"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></g>');
@@ -98,8 +104,8 @@ export async function build({ preview = false, destination = preview ? '.preview
     const page = { ...definition, title: resolveSiteTokens(definition.title), description: resolveSiteTokens(definition.description) };
     const { file, title, description } = page;
     let content = await readFile(path.join(root, `src/${file}.html`), 'utf8');
-    content = content.replace('{{MENU}}', () => menu.map((pizza, i) => menuCard(pizza, i === 0, 2)).join('\n'));
-    content = content.replace('{{MENU_PREVIEW}}', () => [menu[0], menu[2], menu[3]].filter(Boolean).map(pizza => menuCard(pizza)).join('\n'));
+    content = content.replace('{{MENU}}', () => menu.map((pizza, i) => menuCard(pizza, i === 0, 2, basePath)).join('\n'));
+    content = content.replace('{{MENU_PREVIEW}}', () => [menu[0], menu[2], menu[3]].filter(Boolean).map(pizza => menuCard(pizza, false, 3, basePath)).join('\n'));
     const prioritySource = content.match(/<picture data-priority-image>([\s\S]*?)<\/picture>/)?.[1].match(/<source\b[^>]*>/)?.[0];
     const prioritySrcset = prioritySource?.match(/srcset="([^"]+)"/)?.[1];
     const prioritySizes = prioritySource?.match(/sizes="([^"]+)"/)?.[1];
@@ -109,12 +115,12 @@ export async function build({ preview = false, destination = preview ? '.preview
       if (url.protocol !== 'https:' || url.hostname !== 'www.delarte.fr') throw new Error('Source de recette non autorisée.');
       return `<li><a href="${escapeHtml(url.href)}" rel="noreferrer">${escapeHtml(pizza.name)}</a></li>`;
     }).join('\n'));
-    const navigation = pageDefinitions.filter(item => item.indexable).map(item => `<a href="${item.route}"${page.route === item.route ? ' aria-current="page"' : ''}>${escapeHtml(item.label)}</a>`).join('\n');
-    const tokens = { ...siteTokens, TITLE: title, DESCRIPTION: description, ROBOTS: preview || !page.indexable ? 'noindex, follow' : 'index, follow, max-image-preview:large', CANONICAL: `${site.origin}${page.route}`, MENU_COUNT: menu.length };
+    const navigation = pageDefinitions.filter(item => item.indexable).map(item => `<a href="${basePath}${item.route}"${page.route === item.route ? ' aria-current="page"' : ''}>${escapeHtml(item.label)}</a>`).join('\n');
+    const tokens = { ...siteTokens, TITLE: title, DESCRIPTION: description, ROBOTS: preview || !page.indexable ? 'noindex, follow' : 'index, follow, max-image-preview:large', CANONICAL: `${siteUrl}${page.route}`, MENU_COUNT: menu.length };
     let html = layout.replace('{{CONTENT}}', () => content).replace('{{NAVIGATION}}', () => navigation)
       .replace('{{THEME_INIT}}', () => bootstrap)
       .replace('{{LCP_PRELOAD}}', () => preload)
-      .replace('{{STRUCTURED_DATA}}', () => file === '404' ? '' : structuredData(site, page));
+      .replace('{{STRUCTURED_DATA}}', () => file === '404' ? '' : structuredData(site, page, siteUrl));
     html = html.replace('{{CSP_META}}', () => escapeHtml(policy.meta));
     for (const [name, value] of Object.entries(tokens)) html = html.replaceAll(`{{${name}}}`, () => escapeHtml(value));
     for (const [name, icon] of Object.entries(icons)) html = html.replaceAll(`{{${name}}}`, icon);
@@ -124,17 +130,18 @@ export async function build({ preview = false, destination = preview ? '.preview
     await mkdir(path.dirname(filePath), { recursive: true });
     await writeFile(filePath, html);
   }
-  await writeFile(path.join(output, 'styles.css'), versionAssets(await readFile(path.join(root, 'src/styles.css'), 'utf8')));
+  const styles = (await readFile(path.join(root, 'src/styles.css'), 'utf8')).replaceAll('{{BASE_PATH}}', basePath);
+  await writeFile(path.join(output, 'styles.css'), versionAssets(styles));
   await cp(path.join(root, 'src/app.mjs'), path.join(output, 'app.mjs'));
-  await writeFile(path.join(output, 'robots.txt'), preview ? 'User-agent: *\nDisallow: /\n' : `User-agent: *\nAllow: /\nSitemap: ${site.origin}/sitemap.xml\n`);
-  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${pageDefinitions.filter(page => page.indexable).map(page => `<url><loc>${escapeHtml(site.origin + page.route)}</loc></url>`).join('\n')}\n</urlset>\n`;
+  await writeFile(path.join(output, 'robots.txt'), preview ? 'User-agent: *\nDisallow: /\n' : `User-agent: *\nAllow: /\nSitemap: ${siteUrl}/sitemap.xml\n`);
+  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${pageDefinitions.filter(page => page.indexable).map(page => `<url><loc>${escapeHtml(siteUrl + page.route)}</loc></url>`).join('\n')}\n</urlset>\n`;
   await writeFile(path.join(output, 'sitemap.xml'), sitemap);
   await writeFile(path.join(output, '.nojekyll'), '');
-  if (!preview) await writeFile(path.join(output, 'CNAME'), origin.hostname + '\n');
-  const cacheRules = ['/images/*', '/fonts/*.woff2', '/styles.css', '/app.mjs'].map(pattern => `${pattern}\n  Cache-Control: public, max-age=31536000, immutable\n`).join('\n');
-  const pageCacheRules = pageDefinitions.map(page => `${page.route}\n  Cache-Control: no-cache\n`).join('\n');
-  await writeFile(path.join(output, '_headers'), `/*\n  Content-Security-Policy: ${policy.header}\n  X-Content-Type-Options: nosniff\n  X-Frame-Options: DENY\n  Referrer-Policy: no-referrer\n  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()\n${preview ? '  X-Robots-Tag: noindex, follow\n' : ''}\n${cacheRules}\n${pageCacheRules}`);
-  const redirects = pageDefinitions.filter(page => page.route.endsWith('/')).map(page => `${page.file === 'index' ? '/index.html' : `/${page.file}.html`} ${page.route} 301`).join('\n');
+  const prefixPath = pathname => `${basePath}${pathname}`;
+  const cacheRules = ['/images/*', '/fonts/*.woff2', '/styles.css', '/app.mjs'].map(pattern => `${prefixPath(pattern)}\n  Cache-Control: public, max-age=31536000, immutable\n`).join('\n');
+  const pageCacheRules = pageDefinitions.map(page => `${prefixPath(page.route)}\n  Cache-Control: no-cache\n`).join('\n');
+  await writeFile(path.join(output, '_headers'), `${prefixPath('/*')}\n  Content-Security-Policy: ${policy.header}\n  X-Content-Type-Options: nosniff\n  X-Frame-Options: DENY\n  Referrer-Policy: no-referrer\n  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()\n${preview ? '  X-Robots-Tag: noindex, follow\n' : ''}\n${cacheRules}\n${pageCacheRules}`);
+  const redirects = pageDefinitions.filter(page => page.route.endsWith('/')).map(page => `${prefixPath(page.file === 'index' ? '/index.html' : `/${page.file}.html`)} ${prefixPath(page.route)} 301`).join('\n');
   await writeFile(path.join(output, '_redirects'), `${redirects}\n`);
   return { pages: pageDefinitions.length, pizzas: menu.length, preview, directory: output };
 }

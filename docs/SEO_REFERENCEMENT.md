@@ -1,43 +1,43 @@
-# SEO de verone.fr et mise en service Google
+# SEO de l’URL GitHub Pages du projet et mise en service Google
 
 ## Ce qui est implémenté
 - Site statique en français ; contenu utile visible dans le HTML sans attendre JavaScript.
-- Trois URL commerciales distinctes : https://verone.fr/, https://verone.fr/la-carte/ et https://verone.fr/infos-pratiques/.
+- Trois URL commerciales distinctes : https://bastienlopez.github.io/pizzeria_toto/, https://bastienlopez.github.io/pizzeria_toto/la-carte/ et https://bastienlopez.github.io/pizzeria_toto/infos-pratiques/.
 - Un H1 et un titre / une description propres à chaque page ; navigation interne et fil d’Ariane.
-- Canonical HTTPS sans www, Open Graph / Twitter et image de partage 1200 × 630.
+- Canonical HTTPS avec le préfixe `/pizzeria_toto/`, Open Graph / Twitter et image de partage 1200 × 630.
 - JSON-LD Restaurant, WebSite et WebPage / CollectionPage, avec BreadcrumbList sur les sous-pages.
 - Nom, adresse et téléphone issus des informations fournies : Le Verone, 123 rue de Venise, 51100 Reims, 01 23 45 67 89.
 - Aucun avis, note, coordonnée GPS, horaire, prix réel ou offre inventé dans les données structurées.
-- Sitemap avec les trois pages principales ; robots.txt autorisant le crawl en production.
+- Sitemap avec les trois pages principales à `/pizzeria_toto/sitemap.xml`. `robots.txt` est lui aussi sous le préfixe du projet ; ce dépôt ne contrôle pas `https://bastienlopez.github.io/robots.txt`, qui se trouve à la racine de l’hôte.
 - Pages légales encore provisoires et 404 en noindex, follow ; elles restent accessibles aux visiteurs.
-- Anciennes URL .html et variantes sans slash redirigées vers les URL canoniques.
+- Le serveur local redirige les anciennes URL .html et variantes sans slash. GitHub Pages n’interprète pas `_redirects` ; ces redirections ne sont donc pas garanties en production.
 - AVIF avec fallback WebP, dimensions réservées, préchargement de l’image principale, cache versionné, polices locales, styles responsive et CLS corrigé.
 
 L’aperçu utilise .preview/ et noindex ; le build de production utilise dist/. Cette séparation est testée. Ne pas publier .preview/.
 
-GitHub Pages a ensuite été choisi pour la livraison. Le [guide CI/CD](CI_CD.md) décrit le workflow manuel, le contrôle du domaine canonique et les réglages à effectuer par le propriétaire. Le workflow ne traite pas les fichiers _headers / _redirects : les preuves HTTP du serveur Node local ne démontrent pas les mêmes en-têtes ou redirections sur Pages.
+Le workflow GitHub Pages se lance sur chaque push à `main`, après validation du commit et de l’artefact. Le [guide CI/CD](CI_CD.md) détaille le contrôle de l’URL du projet. Pages n’interprète ni `_headers` ni `_redirects` : les preuves HTTP du serveur Node local ne démontrent pas les mêmes en-têtes ou redirections sur Pages.
 
 ## Ce qui n’est pas prouvé
-Aucun déploiement de cette version n’a été effectué. L’ouverture de https://verone.fr par l’outil web n’a pas abouti ; cela ne démontre pas à elle seule une panne du domaine.
+Cette configuration locale n’a pas encore été poussée ni publiée. Le lien GitHub Pages renvoyait une 404 avant ce changement ; il faudra vérifier son état après le prochain push à `main` et la fin du workflow.
 
 Aucun accès à une propriété Search Console vérifiée n’est établi. Aucun changement DNS, ajout de propriété, dépôt de sitemap ou demande d’indexation n’a été exécuté. Aucun jeton de validation fictif n’a été ajouté au code.
 
 Lighthouse est un test de laboratoire local. Ses scores ne prouvent ni un classement, ni une indexation, ni les Core Web Vitals de vrais visiteurs. L’INP terrain n’est pas mesuré par cette série ; le TBT de laboratoire est indiqué séparément.
 
-## Ordre de mise en service
-1. Valider les vraies informations du restaurant, les prix et les droits des photos. Finaliser les mentions légales et l’hébergement.
+## Avant une mise en service professionnelle
+1. Valider les vraies informations du restaurant, les prix et les droits des photos. Remplacer les exemples juridiques et confirmer les horaires.
 2. Exécuter npm run check, npm test et npm run build.
-3. Publier dist/ uniquement après autorisation, sur un hébergement HTTPS pour verone.fr. Vérifier effectivement ses en-têtes, redirections et règles de cache ; _headers et _redirects ne fonctionnent que si l’hôte reconnaît ce format.
-4. Choisir https://verone.fr comme version canonique. Configurer les redirections HTTP → HTTPS et www → sans www sur l’hébergement / DNS concerné, puis vérifier leur absence de boucle. Le générateur seul ne peut pas configurer un domaine.
-5. Contrôler les trois pages en HTTP 200, une URL absente en 404, les canonical, robots.txt, sitemap.xml et l’absence de noindex sur les trois pages publiques.
+3. Pousser à `main` et attendre la réussite de Livraison GitHub Pages. Dans Settings > Pages, garder GitHub Actions comme source et retirer tout domaine personnalisé si l’URL de base n’est pas celle du projet.
+4. Vérifier les trois pages, les images / polices / CSS, le canonical sous `/pizzeria_toto/`, le sitemap, une URL absente en 404 et l’absence de noindex sur les trois pages publiques.
+5. Garder à l’esprit que `_headers` et `_redirects` ne sont pas pris en charge par GitHub Pages ; contrôler les réponses réelles plutôt que les fichiers générés localement.
 
 ## Search Console
 La procédure doit être effectuée par un compte autorisé.
 
-1. Ouvrir Search Console et choisir une propriété de type Domaine : verone.fr.
-2. Copier le TXT fourni par Google dans la zone DNS du domaine, puis lancer la validation lorsque la propagation le permet. Utiliser uniquement la valeur donnée par Google ; ne pas réutiliser un jeton d’un autre site.
+1. Ouvrir Search Console et choisir une propriété de type Préfixe d’URL : `https://bastienlopez.github.io/pizzeria_toto/`.
+2. Choisir une méthode de validation proposée par Google et utiliser seulement la valeur fournie pour cette propriété. Ne pas inventer ni réutiliser un jeton provenant d’un autre site.
 3. Si une propriété existe déjà, obtenir un accès à cette propriété au lieu d’inventer une nouvelle configuration.
-4. Après publication et validation, soumettre https://verone.fr/sitemap.xml dans Sitemaps.
+4. Après publication et validation, soumettre `https://bastienlopez.github.io/pizzeria_toto/sitemap.xml` dans Sitemaps.
 5. Inspecter les trois URL : accès réel à la page, canonical déclaré / choisi par Google, dernier crawl et motif d’exclusion éventuel. Une demande d’indexation n’est pas une garantie d’inclusion.
 6. Suivre les rapports Pages, Performances et Signaux Web essentiels quand des données existent. Comparer impressions, clics et pages d’entrée sur des fenêtres comparables ; ne pas attribuer automatiquement une variation à une modification récente.
 

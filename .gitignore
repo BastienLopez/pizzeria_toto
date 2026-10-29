@@ -7,8 +7,11 @@ test-results/
 .env
 .env.*
 !.env.example
+
+# Fichiers de contexte locaux Codex, non publiés avec le dépôt.
+/AGENTS.md
+/PROJECT_MEMORY.md
+/.codex/
+
 .security-audit/context.json
 .security-audit/scans/
-.codex/recipe-sources.json
-.codex/fonts-source.css
-.codex/qa/
