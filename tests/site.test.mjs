@@ -81,7 +81,7 @@ test('les sept pages utiles ont un titre distinct, un H1 et les bons liens actif
   assert.equal(titles.size, 7);
   const missing = await fetch(address + sitePath('/pizza-introuvable'));
   assert.equal(missing.status, 404);
-  assert.match(await missing.text(), /Cette part/);
+  assert.match(await missing.text(), /Page introuvable/);
 });
 
 test('aucun lien local ou média généré ne pointe vers un fichier absent', async () => {

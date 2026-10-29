@@ -113,8 +113,8 @@ if (dialog && typeof dialog.showModal === 'function') {
       dialog.querySelector('#dialog-title').textContent = card.querySelector('.pizza-name').textContent;
       dialog.querySelector('#dialog-description').textContent = card.querySelector('.pizza-description').textContent;
       dialog.querySelector('#dialog-price').textContent = card.querySelector('.pizza-price').textContent;
-      const badges = [...card.querySelectorAll('.pizza-badge')].map(badge => badge.textContent.trim());
-      dialog.querySelector('#dialog-base').textContent = [card.querySelector('.pizza-base').textContent, ...badges].join(' · ');
+      const attributes = [...card.querySelectorAll('.pizza-attribute')].map(attribute => attribute.textContent.trim());
+      dialog.querySelector('#dialog-base').textContent = [card.querySelector('.pizza-base').textContent, ...attributes].join(' · ');
       document.body.classList.add('dialog-open');
       dialog.showModal();
     });

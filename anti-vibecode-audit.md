@@ -1,12 +1,23 @@
-# Revue produit du Verone
+# Revue anti-vibecode et design du Verone
 
-29 octobre 2026, mise à jour après les correctifs demandés. La revue globale initiale reste dans docs/AUDIT_GLOBAL_2026-10-29.md ; cette matrice actualise les constats concernés par les corrections et leurs retests. La démonstration est fonctionnelle ; les faits et droits réels restent à finaliser avant publication professionnelle.
+29 octobre 2026 — audit et corrections après le retour du propriétaire sur l’aspect trop « généré ». Périmètre : sources et artefact de production, rendus locaux mobile / desktop, thèmes clair / sombre, parcours et contrôles anti-slop. Le déploiement public n’a pas été modifié.
 
-Preuves des correctifs : 24 tests Node, 78 tests navigateur, 54 contrôles responsive et douze Lighthouse 13.6.0 sur les trois pages principales, mobile / desktop et clair / sombre. Rapport : [corrections et validation](C:/Users/UTILISATEUR/Documents/GitHub/pizzeria_toto/docs/CORRECTIONS_2026-10-29.md). Les 28 Lighthouse du précédent audit restent des mesures historiques.
+Preuves actuelles : `npm run validate` (24 tests Node, 8 pages, 55 fichiers et 1 550 547 octets), `npm run test:e2e` (78/78 dans six profils Chromium / WebKit, mobile / desktop, clair / sombre) et `npm audit --audit-level=moderate` (zéro vulnérabilité signalée). Les rendus locaux de l’accueil, de la carte, des informations pratiques et des mentions légales ont été inspectés ; les parcours navigateur ne signalent pas d’erreur.
 
 États : PASS = vérifié dans le périmètre décrit ; FAIL = défaut observé ; JUSTIFIED = choix intentionnel de la démonstration ; N/A = mécanisme absent ; UNKNOWN = information ou preuve manquante.
 
 94 contrôles : 59 PASS, 0 FAIL, 8 JUSTIFIED, 21 N/A, 6 UNKNOWN. Ce décompte n’est pas un score de conformité.
+
+## Retest des constats précédents
+
+| ID | État après correction | Retest |
+|---|---|---|
+| D05 | PASS | Les contrôles ont un rayon de 2 px, les photos et le dialogue 4 px ; les fiches pizza sont des lignes séparées par des règles fines, sans cartes encadrées. Les captures mobiles et desktop confirment la hiérarchie par l’espace, le texte et la photo. |
+| D06 | PASS | Les surtitres répétés ont disparu de l’accueil et des pages. Le libellé discret de la base reste uniquement dans la fiche pizza ouverte, où il décrit la recette. |
+| P20 | PASS | Les slogans génériques ont été remplacés par l’adresse, les horaires à confirmer, le téléphone et les informations de démonstration. La recherche ciblée ne retrouve plus ces phrases dans les sources ou le générateur de l’aperçu social. |
+| D02 | PASS | Le sceau flottant a été supprimé. Le wordmark est typographique et les icônes d’application n’utilisent plus l’anneau décoratif répété. |
+
+La palette approuvée et Fraunces / Manrope restent en place. L’accueil est plus court et factuel, la carte passe en liste éditoriale ; les photos Del Arte et les prix fictifs sont encore des éléments de démonstration à remplacer ou à autoriser avant toute publication commerciale.
 
 ## Avant publication
 
@@ -34,7 +45,7 @@ Preuves des correctifs : 24 tests Node, 78 tests navigateur, 54 contrôles respo
 
 | ID | État | Preuve / raison |
 | --- | --- | --- |
-| P01 | PASS | Canonicals et identité verone.fr contrôlés dans le HTML construit ; domaine réellement servi non prouvé |
+| P01 | JUSTIFIED | URL de projet GitHub Pages demandée par le propriétaire ; le domaine personnalisé verone.fr n’est plus la cible de cet artefact |
 | P02 | PASS | Palette du brief, aucun dégradé violet / bleu |
 | P03 | JUSTIFIED | Photos culinaires Del Arte réelles et créditées, utilisées comme exemples ; elles ne prouvent pas les produits du restaurant ni des droits commerciaux |
 | P04 | PASS | Aucun avis ni témoignage |
@@ -53,18 +64,18 @@ Preuves des correctifs : 24 tests Node, 78 tests navigateur, 54 contrôles respo
 | P17 | PASS | Pizza et carte identifiables au premier écran |
 | P18 | JUSTIFIED | Fraunces italique du brief, sans police manuscrite ajoutée |
 | P19 | PASS | Aucun badge de générateur |
-| P20 | PASS | Copie française spécifique au restaurant |
+| P20 | PASS | Copie d’accueil factuelle, slogans génériques retirés des pages et de l’image sociale |
 
 ## Design : D01–D24
 
 | ID | État | Preuve / raison |
 | --- | --- | --- |
 | D01 | PASS | Aucun dégradé agressif |
-| D02 | JUSTIFIED | Un cachet italien lié à la photo, pas d’icônes flottantes répétées |
-| D03 | PASS | Deux thèmes inspectés ; axe sur trois pages principales et dialogue, Lighthouse accessibilité 100 sur douze runs des principales ; certification exhaustive hors preuve |
+| D02 | PASS | Pas de sceau flottant ; wordmark et icônes simplifiés |
+| D03 | PASS | Rendus clair / sombre inspectés sur l’accueil, la carte et les informations pratiques ; axe A / AA repasse dans les parcours actuels. Cela ne constitue pas une certification WCAG exhaustive |
 | D04 | PASS | Tokens de la palette obligatoire |
-| D05 | PASS | Cartes réservées aux pizzas et informations pratiques ; pas d’ombres accumulées |
-| D06 | PASS | Hero partagé, grille de carte, photo éditoriale, contact et FAQ distincts |
+| D05 | PASS | Rayons limités à 2 px pour les contrôles et 4 px pour les images / dialogue ; contenu en lignes sans cadres de carte |
+| D06 | PASS | Surtitres retirés des sections ; un seul libellé descriptif reste dans le dialogue de recette |
 | D07 | PASS | Pas de glassmorphism |
 | D08 | JUSTIFIED | Fraunces et Manrope explicitement demandées |
 | D09 | JUSTIFIED | Fine séparation typographique liée à la voix italienne |
@@ -73,7 +84,7 @@ Preuves des correctifs : 24 tests Node, 78 tests navigateur, 54 contrôles respo
 | D12 | PASS | Pas de liste automatique de coches |
 | D13 | N/A | Aucun abonnement ou grille de forfaits |
 | D14 | JUSTIFIED | Compositions lisibles et photographies appétissantes ; références provisoires de démonstration à remplacer avant usage commercial |
-| D15 | PASS | Aucun kit de composants ou thème préfabriqué |
+| D15 | PASS | CSS natif et tokens maison, sans kit de composants tiers |
 | D16 | PASS | Aucun thème IA violet / noir |
 | D17 | N/A | Aucun chargement de données ou envoi asynchrone |
 | D18 | PASS | Aucun halo ou orb |
@@ -95,9 +106,9 @@ Preuves des correctifs : 24 tests Node, 78 tests navigateur, 54 contrôles respo
 | L05 | PASS | Image sociale 1200 × 630 et métadonnées absolues dans le build ; disponibilité publique non prouvée |
 | L06 | PASS | Favicon SVG, icône Apple 180 × 180 |
 | L07 | PASS | Aperçu noindex / robots bloquant ; production autorisant les trois pages commerciales |
-| L08 | PASS | Sitemap de trois URL canoniques https://verone.fr dans le livrable ; aucune soumission GSC |
+| L08 | PASS | Sitemap construit avec trois URL canoniques sous https://bastienlopez.github.io/pizzeria_toto/ ; aucune soumission GSC ni indexation prouvée |
 | L09 | PASS | Alt sur les photos, SVG décoratifs masqués aux lecteurs d’écran |
-| L10 | PASS | 54 contrôles après correctifs : huit pages à 375 / 768 / 1440, deux thèmes ; trois principales aussi à 320. Aucun débordement ; lien tablette La carte désormais 44 × 44 px CSS (arrondi mesuré 43,992) |
+| L10 | PASS | Les 78 parcours couvrent six profils mobile / desktop et clair / sombre ; les pages principales ne débordent pas. Captures manuelles à 320 × 780, 390 × 844 et 1440 × 1000. Les cibles de navigation tablette et filtres restent à 44 px minimum |
 | L11 | PASS | Barre mobile fixe carte / appel, marge de pied de page |
 | L12 | N/A | Aucun formulaire, transaction ou récupération API |
 | L13 | N/A | Aucun formulaire |
@@ -107,7 +118,7 @@ Preuves des correctifs : 24 tests Node, 78 tests navigateur, 54 contrôles respo
 | L17 | N/A | Aucun suivi non essentiel ; seule préférence de thème locale, divulguée dans la confidentialité |
 | L18 | N/A | Aucune statistique de visite, décision volontaire |
 | L19 | UNKNOWN | Tous les appels et métadonnées dérivent du numéro canonique ; contre-exemple de changement de coordonnées devenu PASS. Ligne réelle non appelée |
-| L20 | PASS | Aucune image du dialogue avant ouverture ; picture responsive repris depuis la carte, AVIF ou WebP selon le navigateur. Plus de WebP Margherita supplémentaire dans Lighthouse à froid |
+| L20 | PASS | Aucune image du dialogue avant ouverture ; picture responsive repris depuis la carte, AVIF ou WebP selon le navigateur. Le test navigateur confirme le chargement de la variante sélectionnée sans fallback superflu |
 
 ## Sécurité : S01–S20
 
@@ -132,12 +143,12 @@ Preuves des correctifs : 24 tests Node, 78 tests navigateur, 54 contrôles respo
 | S17 | N/A | Aucun sérialiseur ou réponse API métier |
 | S18 | UNKNOWN | En-têtes restrictifs et CSP hashée observés sur localhost ; les fichiers _headers ne prouvent pas les réponses de GitHub Pages |
 | S19 | UNKNOWN | HTTPS, DNS, domaine et configuration Pages réels non vérifiés ; échec d’ouverture par l’outil web sans diagnostic de panne |
-| S20 | PASS | npm audit actuel : zéro vulnérabilité déclarée, cinq paquets de développement et aucune dépendance de production ; pas une preuve d’absence de faille |
+| S20 | PASS | `npm audit --audit-level=moderate` : zéro vulnérabilité déclarée ; aucune dépendance de production ; pas une preuve d’absence de faille |
 
 ## Mesures et limites
 
-Après correction du dialogue : douze Lighthouse des pages principales, performance 98–100, accessibilité / bonnes pratiques / SEO à 100. LCP maximal 2,124 s, CLS maximal 0,062014 et TBT maximal 52 ms. Le CLS n’est pas nul ; ces passages ponctuels ne prouvent pas des Core Web Vitals terrain. Les pages légales gardent leur noindex intentionnel.
+Le sitemap et les métadonnées construits pointent vers `bastienlopez.github.io/pizzeria_toto`. Le livrable passe ses budgets à 1 550 547 octets, soit 23 001 octets de moins que la construction de référence avant cette refonte. Les 78 parcours navigateur couvrent six profils et axe A / AA sur les pages principales. `npm audit` rapporte zéro vulnérabilité connue au moment du contrôle.
 
-Le scan Codex Security du précédent audit porte sur l’instantané avant correction ; il n’a pas été relancé. Les tests de sécurité / échappement Node et l’audit npm ont été réexécutés après les modifications ; npm audit reste à zéro. Aucun déploiement ni test offensif distant.
+Aucun Lighthouse n’a été relancé dans cet audit ; les scores et Core Web Vitals ponctuels des rapports précédents ne sont pas présentés comme une mesure de cette version. Les captures visuelles restent locales dans le répertoire QA ignoré par Git. Le scanner statique anti-slop fournit des pistes seulement : ses faux négatifs sur le sitemap et le favicon ont été contredits par l’artefact construit, et ses motifs d’interpolation ne prouvent aucune vulnérabilité.
 
-Lecteur d’écran, appareils physiques, audit WCAG exhaustif, CrUX / INP terrain, indexation, GSC / GBP et citations IA : NON TESTÉS ou NON PROUVÉS. Les comptes, paramètres et en-têtes de production ne sont pas validés par les tests locaux.
+Le déploiement GitHub Pages, le DNS, HTTPS, les en-têtes réels, Search Console, l’indexation, Google Business Profile, CrUX / INP terrain, lecteurs d’écran et appareils physiques restent NON PROUVÉS ou NON TESTÉS. Les informations juridiques réelles, horaires, droits des photos et prix sont aussi à confirmer avant la publication commerciale.
